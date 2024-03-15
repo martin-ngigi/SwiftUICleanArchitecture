@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct PokemonExploreView: View {
+struct PokemonListView: View {
     
     let getPokemonListUseCase: GetPokemonListUseCase = GetPokemonListUseCase(pokeRespository: ExploreRepository.shared)
     
@@ -16,14 +16,18 @@ struct PokemonExploreView: View {
     let limit: Int = 20
     
     var body: some View {
-        List{
-            ForEach(pokemonList, id: \.self){ pokemon in
-                PokemonRowView(pokemon: pokemon)
-                    .onAppear{
-                        if pokemonList.last == pokemon {
-                            Task { await loadMore() }
-                        }
+        NavigationStack{
+            List{
+                ForEach(pokemonList, id: \.self){ pokemon in
+                    NavigationLink(destination: PokemonDetailView(id: pokemon.id)) {
+                        PokemonRowView(pokemon: pokemon)
+                            .onAppear{
+                                if pokemonList.last == pokemon {
+                                    Task { await loadMore() }
+                                }
+                            }
                     }
+                }
             }
         }
         .task {
@@ -45,5 +49,5 @@ struct PokemonExploreView: View {
 }
 
 #Preview {
-    PokemonExploreView()
+   PokemonListView()
 }
