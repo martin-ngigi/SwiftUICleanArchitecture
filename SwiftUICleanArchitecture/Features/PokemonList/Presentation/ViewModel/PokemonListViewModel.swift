@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 class PokemonListViewModel: ObservableObject{
     @Published var state: FetchState = .good
@@ -20,17 +21,17 @@ class PokemonListViewModel: ObservableObject{
     @Published var error: LocalizedError?
     
     init(){
-        Task { await loadMore() }
+//        Task { await loadMore(modelContext: ModelContext) }
     }
     
     @MainActor
-    func loadMore() async{
+    func loadMore(modelContext: ModelContext) async{
         guard state == FetchState.good else { return }
         
         state = .isLoading
         
         do {
-            let result = try await getPokemonListUseCase.execute(limit: limit, offset: offset)
+            let result = try await getPokemonListUseCase.execute(limit: limit, offset: offset, modelContext: modelContext)
             
             switch result {
             case .success(let newPokemonList):

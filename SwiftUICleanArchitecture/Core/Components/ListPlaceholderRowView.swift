@@ -6,16 +6,20 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ListPlaceholderRowView: View {
     
+    let mContext: ModelContext
+    
     let state: FetchState
 //    let loadMore: () -> Void // sync
-    let loadMore: () async -> Void // Asynchronous loadMore parameter
+    let loadMore: (_ modelContext: ModelContext) async -> Void // Asynchronous loadMore parameter
 
-    init(state: FetchState, loadMore: @escaping () async -> Void) { // Asynchronous loadMore parameter
-           self.state = state
-           self.loadMore = loadMore
+    init(state: FetchState, context: ModelContext,  loadMore: @escaping  (_ modelContext: ModelContext) async -> Void) { // Asynchronous loadMore parameter
+        self.state = state
+        self.loadMore = loadMore
+        self.mContext = context
        }
     
     var body: some View {
@@ -24,7 +28,7 @@ struct ListPlaceholderRowView: View {
             Color.clear
                 .onAppear {
 //                    loadMore() // sync
-                    Task { await loadMore() }
+                    Task { await loadMore(mContext) }
                 }
         case .isLoading:
             LoadingIndicatorView()
@@ -39,10 +43,10 @@ struct ListPlaceholderRowView: View {
 
 
 
-#Preview {
-    //    ListPlaceholderRowView(state: .noResults, loadMore: {} ) // sync
-    ListPlaceholderRowView(state: .noResults, loadMore: {
-        // Simulate an asynchronous operation here
-        Task { try? await Task.sleep(nanoseconds: 2_000_000_000) } // Simulating a 2-second delay
-    })
-}
+//#Preview {
+//    //    ListPlaceholderRowView(state: .noResults, loadMore: {} ) // sync
+//    ListPlaceholderRowView(state: .noResults, loadMore: {
+//        // Simulate an asynchronous operation here
+//        Task { try? await Task.sleep(nanoseconds: 2_000_000_000) } // Simulating a 2-second delay
+//    })
+//}

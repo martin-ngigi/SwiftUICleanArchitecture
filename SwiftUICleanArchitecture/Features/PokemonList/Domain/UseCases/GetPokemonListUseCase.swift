@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftData
 
 class GetPokemonListUseCase{
     let respository: PokemonListRepositoryProtocol
@@ -14,8 +15,8 @@ class GetPokemonListUseCase{
         self.respository = pokeRespository
     }
     
-    func execute(limit: Int, offset: Int) async throws -> Result<[PokemonEntity], APIError> {
-        return await respository.fetchPokemons(limit: limit, offset: offset)
+    func execute(limit: Int, offset: Int, modelContext: ModelContext) async throws -> Result<[PokemonEntity], APIError> {
+        return await respository.fetchPokemons(limit: limit, offset: offset, modelContext: modelContext)
     }
     
     func execute2(limit: Int, offset: Int) async throws -> [PokemonEntity] {

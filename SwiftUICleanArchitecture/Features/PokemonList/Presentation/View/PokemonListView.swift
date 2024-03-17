@@ -6,11 +6,13 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct PokemonListView: View {
     
     @ObservedObject var viewModel = PokemonListViewModel()
-    
+    @Environment(\.modelContext) var context
+
     var body: some View {
         NavigationStack{
                         
@@ -23,16 +25,21 @@ struct PokemonListView: View {
                         PokemonRowView(pokemon: pokemon)
                             .onAppear{
                                 if viewModel.pokemonList.last == pokemon {
-                                    Task { await viewModel.loadMore() }
+                                    Task { await viewModel.loadMore(modelContext: context) }
                                 }
                             }
                     }
                 }
                 
                 // handel states and loading as well
-                ListPlaceholderRowView(state: viewModel.state, loadMore: viewModel.loadMore)
+                ListPlaceholderRowView(state: viewModel.state,  context: context, loadMore: viewModel.loadMore)
+
+
             }
             .navigationTitle("Pokemons")
+            .task { //loadMore() on appear
+                await viewModel.loadMore(modelContext: context)
+            }
             
             /// For loading more
 //            if viewModel.state == .isLoading{
@@ -58,7 +65,7 @@ struct PokemonListView: View {
                             PokemonRowView(pokemon: pokemon)
                                 .onAppear{
                                     if viewModel.pokemonList.last == pokemon {
-                                        Task { await viewModel.loadMore() }
+//                                        Task { await viewModel.loadMore() }
                                     }
                                 }
                         }

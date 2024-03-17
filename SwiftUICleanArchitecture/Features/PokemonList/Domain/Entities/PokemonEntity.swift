@@ -26,6 +26,18 @@ struct PokemonEntity: Hashable{
     init?(pokemonDetailResponse: PokemonDetailResponseModel) {
         self.id = pokemonDetailResponse.id
         self.name = pokemonDetailResponse.name
+//        self.imageURL = Constants.APIEndpoint.getPokemonImage(id: id).url?.absoluteString ?? ""
+        self.imageURL = Constants.APIEndpoint.getPokemonImage(id: pokemonDetailResponse.id).url?.absoluteString ?? ""
+    }
+    
+    init?(pokemonObject: PokemonSwiftDataObject) {
+        guard let urlComponents = URLComponents(string: pokemonObject.url),
+              let idString = urlComponents.path.split(separator: "/").last,
+              let id = Int(idString) else {
+                  return nil
+              }
+        self.id = id
+        self.name = pokemonObject.name
         self.imageURL = Constants.APIEndpoint.getPokemonImage(id: id).url?.absoluteString ?? ""
     }
 }

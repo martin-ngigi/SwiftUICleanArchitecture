@@ -12,6 +12,7 @@ struct SwiftUICleanArchitectureApp: App {
     var body: some Scene {
         WindowGroup {
             PokemonListView()
+                .modelContainer(for: [PokemonSwiftDataObject.self])
         }
     }
 }
