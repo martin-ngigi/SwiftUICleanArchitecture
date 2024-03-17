@@ -13,6 +13,6 @@ class DetailDataSource {
             throw URLError(.badURL)
         }
         
-        return try await NetworkUtils.shared.fetch(from: url)
+        return try await NetworkUtils.shared.fetch2(from: url)
     }
 }

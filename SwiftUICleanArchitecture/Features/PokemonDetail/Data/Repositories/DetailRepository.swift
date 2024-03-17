@@ -12,6 +12,7 @@ class DetailRepository: DetailRepositoryProtocol{
     private let detailDataSource = DetailDataSource()
     
     func fetchPokemonDetail(id: Int) async throws -> PokemonDetailEntity? {
+        
         let pokemonDetailResponse: PokemonDetailResponseModel = try await detailDataSource.fetchPokemonDatail(id: id)
         guard let pokemonDetail: PokemonDetailEntity = PokemonDetailEntity(pokemonDetailResponse: pokemonDetailResponse) else {
             return nil

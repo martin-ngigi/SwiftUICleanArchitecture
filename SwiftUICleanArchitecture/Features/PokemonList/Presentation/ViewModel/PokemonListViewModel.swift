@@ -10,7 +10,7 @@ import Foundation
 class PokemonListViewModel: ObservableObject{
     @Published var state: FetchState = .good
     
-    @Published var getPokemonListUseCase: GetPokemonListUseCase = GetPokemonListUseCase(pokeRespository: ExploreRepository.shared)
+    @Published var getPokemonListUseCase: GetPokemonListUseCase = GetPokemonListUseCase(pokeRespository: PokemonListRepository.shared)
     
     @Published var pokemonList: [PokemonEntity] = []
     @Published var offset: Int = 0
@@ -24,14 +24,45 @@ class PokemonListViewModel: ObservableObject{
     }
     
     @MainActor
-    func loadMore() async {
+    func loadMore() async{
+        guard state == FetchState.good else { return }
+        
+        state = .isLoading
+        
+        do {
+            let result = try await getPokemonListUseCase.execute(limit: limit, offset: offset)
+            
+            switch result {
+            case .success(let newPokemonList):
+                pokemonList += newPokemonList
+                offset += newPokemonList.count
+                
+                if newPokemonList.isEmpty {
+                    self.state = .noResults
+                }
+                else{
+                    self.state = .good
+                }
+            case .failure(let error):
+                print("loadMore pokemon list Error occurred: \(error.localizedDescription)")
+                self.state = .error(error.localizedDescription)
+            }
+        }
+        catch{
+            print("loadMore pokemon list Error occurred: \(error.localizedDescription)")
+            self.state = .error(error.localizedDescription)
+        }
+    }
+    
+    @MainActor
+    func loadMore2() async {
         
         guard state == FetchState.good else { return }
         
         state = .isLoading
         
         do{
-            let newPokemonList = try await getPokemonListUseCase.execute(limit: limit, offset: offset)
+            let newPokemonList = try await getPokemonListUseCase.execute2(limit: limit, offset: offset)
             pokemonList += newPokemonList
             offset += newPokemonList.count
             
