@@ -36,6 +36,8 @@
 		A387F1632BA59F2100A2F53F /* ListPlaceholderRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387F1622BA59F2100A2F53F /* ListPlaceholderRowView.swift */; };
 		A387F1662BA5AE5400A2F53F /* PokemonDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387F1652BA5AE5400A2F53F /* PokemonDetailViewModel.swift */; };
 		A387F16C2BA622CA00A2F53F /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387F16B2BA622CA00A2F53F /* APIError.swift */; };
+		A387F16F2BA6FAB600A2F53F /* NetworkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387F16E2BA6FAB600A2F53F /* NetworkInfo.swift */; };
+		A387F1732BA6FF3A00A2F53F /* NetworkStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387F1722BA6FF3A00A2F53F /* NetworkStatusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +72,8 @@
 		A387F1622BA59F2100A2F53F /* ListPlaceholderRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListPlaceholderRowView.swift; sourceTree = "<group>"; };
 		A387F1652BA5AE5400A2F53F /* PokemonDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonDetailViewModel.swift; sourceTree = "<group>"; };
 		A387F16B2BA622CA00A2F53F /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		A387F16E2BA6FAB600A2F53F /* NetworkInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInfo.swift; sourceTree = "<group>"; };
+		A387F1722BA6FF3A00A2F53F /* NetworkStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -135,6 +139,7 @@
 		A35CF0912BA44AAE00082F3D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				A387F16D2BA6FAA200A2F53F /* Connection */,
 				A387F15D2BA5877100A2F53F /* Models */,
 				A35CF0962BA44B6100082F3D /* Utils */,
 				A35CF0952BA44B5100082F3D /* Components */,
@@ -155,6 +160,7 @@
 			children = (
 				A387F1602BA5920400A2F53F /* LoadingIndicatorView.swift */,
 				A387F1622BA59F2100A2F53F /* ListPlaceholderRowView.swift */,
+				A387F1722BA6FF3A00A2F53F /* NetworkStatusView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -384,6 +390,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		A387F16D2BA6FAA200A2F53F /* Connection */ = {
+			isa = PBXGroup;
+			children = (
+				A387F16E2BA6FAB600A2F53F /* NetworkInfo.swift */,
+			);
+			path = Connection;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -462,6 +476,7 @@
 				A35CF0822BA446E600082F3D /* ContentView.swift in Sources */,
 				A387F15C2BA586DF00A2F53F /* PokemonListViewModel.swift in Sources */,
 				A35CF0D02BA47A9000082F3D /* PokemonDetailView.swift in Sources */,
+				A387F16F2BA6FAB600A2F53F /* NetworkInfo.swift in Sources */,
 				A35CF0AA2BA459BB00082F3D /* PokemonListRepository.swift in Sources */,
 				A35CF0C82BA476CD00082F3D /* DetailRepository.swift in Sources */,
 				A35CF0B32BA45E0300082F3D /* GetPokemonListUseCase.swift in Sources */,
@@ -470,6 +485,7 @@
 				A35CF0A62BA4584300082F3D /* PokemonListDataSource.swift in Sources */,
 				A35CF0802BA446E600082F3D /* SwiftUICleanArchitectureApp.swift in Sources */,
 				A387F15F2BA5878500A2F53F /* FetchState.swift in Sources */,
+				A387F1732BA6FF3A00A2F53F /* NetworkStatusView.swift in Sources */,
 				A35CF0BE2BA4715400082F3D /* PokemonDetailResponseModel.swift in Sources */,
 				A35CF0B72BA45FFD00082F3D /* PokemonRowView.swift in Sources */,
 				A35CF0CE2BA4777400082F3D /* GetpokemonDetailUseCase.swift in Sources */,

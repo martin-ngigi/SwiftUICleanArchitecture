@@ -13,7 +13,11 @@ struct PokemonListView: View {
     
     var body: some View {
         NavigationStack{
+                        
             List{
+                
+                NetworkStatusView()
+                
                 ForEach(viewModel.pokemonList, id: \.self){ pokemon in
                     NavigationLink(destination: PokemonDetailView(id: pokemon.id)) {
                         PokemonRowView(pokemon: pokemon)
