@@ -15,11 +15,11 @@ class GetPokemonListUseCase{
         self.respository = pokeRespository
     }
     
-    func execute(limit: Int, offset: Int, modelContext: ModelContext) async throws -> Result<[PokemonEntity], APIError> {
-        return await respository.fetchPokemons(limit: limit, offset: offset, modelContext: modelContext)
+    func executeRemote(limit: Int, offset: Int, modelContext: ModelContext) async throws -> Result<[PokemonEntity], APIError> {
+        return await respository.fetchFromRemote(limit: limit, offset: offset, modelContext: modelContext)
     }
     
-    func execute2(limit: Int, offset: Int) async throws -> [PokemonEntity] {
-        return try await respository.fetchPokemons2(limit: limit, offset: offset)
+    func executeLocalData(limit: Int, offset: Int, modelContext: ModelContext) -> Result<[PokemonEntity], APIError> {
+        return respository.fetchFromLocalDB(limit: limit, offset: offset, modelContext: modelContext)
     }
 }

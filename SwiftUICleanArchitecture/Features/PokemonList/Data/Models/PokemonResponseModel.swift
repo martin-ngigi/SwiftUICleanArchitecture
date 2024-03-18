@@ -30,7 +30,17 @@ class PokemonResponseModel : Decodable, Encodable {
 @Model
 class PokemonSwiftDataObject{
     @Attribute(.unique)
-    var id: String = NSUUID().description
+//    var id: String = NSUUID().description
+    var id: Int {
+            guard let urlComponents = URLComponents(string: url),
+                  let idString = urlComponents.path.split(separator: "/").last,
+                  let id = Int(idString)
+                    else {
+//                          return nil
+                          return 0
+                      }
+            return id
+        }
     var name: String
     var url: String
     

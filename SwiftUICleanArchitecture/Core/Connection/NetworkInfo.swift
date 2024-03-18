@@ -27,4 +27,8 @@ class NetworkInfoImpl: NetworkInfo, ObservableObject {
         let queue = DispatchQueue(label: "NetworkMonitor")
         monitor.start(queue: queue)
     }
+    
+    func checkIfInternetIsConnected() async -> Bool {
+        return isConnected
+    }
 }
