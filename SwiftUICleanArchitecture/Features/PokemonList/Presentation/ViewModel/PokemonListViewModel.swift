@@ -20,11 +20,11 @@ class PokemonListViewModel: ObservableObject{
     private var networkInfo = NetworkInfoImpl()
     
     init(){
-//        Task { await loadMore(modelContext: ModelContext) }
+//        Task { await loadMore(modelContext: ModelContext, isInternetConnected: Bool) }
     }
     
     @MainActor
-    func loadMore(modelContext: ModelContext) async{
+    func loadMore(modelContext: ModelContext, isInternetConnected: Bool) async{
         guard state == FetchState.good else { return }
         
         state = .isLoading
@@ -33,10 +33,8 @@ class PokemonListViewModel: ObservableObject{
         
         do {
             
-            let networkInfo = NetworkInfoImpl()
-            let isInternetConnected: Bool = await networkInfo.checkIfInternetIsConnected()
-//            let isInternetConnected: Bool = networkInfo.isConnected
-//            let isInternetConnected: Bool = true
+//            let networkInfo = NetworkInfoImpl()
+//            let isInternetConnected: Bool = await networkInfo.checkIfInternetIsConnected()
             
             var result: Result<[PokemonEntity], APIError>
 

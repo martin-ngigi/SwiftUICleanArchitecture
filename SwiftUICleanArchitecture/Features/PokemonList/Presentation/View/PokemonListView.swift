@@ -12,6 +12,7 @@ struct PokemonListView: View {
     
     @ObservedObject var viewModel = PokemonListViewModel()
     @Environment(\.modelContext) var context
+    @ObservedObject var networkInfo = NetworkInfoImpl()
 
     var body: some View {
         NavigationStack{
@@ -25,20 +26,20 @@ struct PokemonListView: View {
                         PokemonRowView(pokemon: pokemon)
                             .onAppear{
                                 if viewModel.pokemonList.last == pokemon {
-                                    Task { await viewModel.loadMore(modelContext: context) }
+                                    Task { await viewModel.loadMore(modelContext: context, isInternetConnected: networkInfo.isConnected) }
                                 }
                             }
                     }
                 }
                 
                 // handel states and loading as well
-                ListPlaceholderRowView(state: viewModel.state,  context: context, loadMore: viewModel.loadMore)
+                ListPlaceholderRowView(modelContext: context, isInternetConnected: networkInfo.isConnected, state: viewModel.state, loadMore: viewModel.loadMore)
 
 
             }
             .navigationTitle("Pokemons")
             .task { //loadMore() on appear
-                await viewModel.loadMore(modelContext: context)
+                await viewModel.loadMore(modelContext: context, isInternetConnected: networkInfo.isConnected )
             }
             
             /// For loading more
