@@ -16,10 +16,12 @@ class PokemonListRepository: PokemonListRepositoryProtocol {
     static let shared = PokemonListRepository()
     
     var networkInfo = NetworkInfoImpl()
+    let remotePokemonListDataSource = PokemonListRemoteDataSource()
+    let localPokemonListDataSource = PokemonListLocalDataSource()
+
     
     func fetchFromRemote(limit: Int, offset: Int, modelContext: ModelContext) async -> Result<[PokemonEntity], APIError> {
         
-        let remotePokemonListDataSource = PokemonListRemoteDataSource()
         let pokemonListResponseResult = await remotePokemonListDataSource.fetchPokemons(limit: limit, offset: offset)
         
         switch pokemonListResponseResult {
@@ -59,8 +61,7 @@ class PokemonListRepository: PokemonListRepositoryProtocol {
                 for entity in pokemonSwiftDatas {
                     do {
                         //insert and save pokemons
-                        modelContext.insert(entity)
-                        try modelContext.save()
+                        try localPokemonListDataSource.createPokemon(pokemon: entity, context: modelContext)
                         //print("DEBUG: Saving Pokemons to local db success. Id: \(String(describing: entity.id)), Name: \(entity.name)")
                     }
                     catch{

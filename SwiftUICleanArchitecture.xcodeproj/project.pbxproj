@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A35786302BA988DF00D2D435 /* SwiftDataOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = A357862F2BA988DF00D2D435 /* SwiftDataOperations.swift */; };
 		A35CF0802BA446E600082F3D /* SwiftUICleanArchitectureApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35CF07F2BA446E600082F3D /* SwiftUICleanArchitectureApp.swift */; };
 		A35CF0822BA446E600082F3D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A35CF0812BA446E600082F3D /* ContentView.swift */; };
 		A35CF0842BA446EA00082F3D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A35CF0832BA446EA00082F3D /* Assets.xcassets */; };
@@ -44,6 +45,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A357862F2BA988DF00D2D435 /* SwiftDataOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataOperations.swift; sourceTree = "<group>"; };
 		A35CF07C2BA446E600082F3D /* SwiftUICleanArchitecture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUICleanArchitecture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A35CF07F2BA446E600082F3D /* SwiftUICleanArchitectureApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUICleanArchitectureApp.swift; sourceTree = "<group>"; };
 		A35CF0812BA446E600082F3D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -93,6 +95,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A357862E2BA988C000D2D435 /* SwiftDataOperations */ = {
+			isa = PBXGroup;
+			children = (
+				A357862F2BA988DF00D2D435 /* SwiftDataOperations.swift */,
+			);
+			path = SwiftDataOperations;
+			sourceTree = "<group>";
+		};
 		A35CF0732BA446E600082F3D = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +155,7 @@
 		A35CF0912BA44AAE00082F3D /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				A357862E2BA988C000D2D435 /* SwiftDataOperations */,
 				A387F16D2BA6FAA200A2F53F /* Connection */,
 				A387F15D2BA5877100A2F53F /* Models */,
 				A35CF0962BA44B6100082F3D /* Utils */,
@@ -509,6 +520,7 @@
 				A387F1612BA5920400A2F53F /* LoadingIndicatorView.swift in Sources */,
 				A35CF0A02BA4578100082F3D /* PokemonListResponseModel.swift in Sources */,
 				A387F16C2BA622CA00A2F53F /* APIError.swift in Sources */,
+				A35786302BA988DF00D2D435 /* SwiftDataOperations.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
