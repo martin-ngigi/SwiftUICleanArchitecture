@@ -41,6 +41,9 @@ struct PokemonListView: View {
             .task { //loadMore() on appear
                 await viewModel.loadMore(modelContext: context, isInternetConnected: networkInfo.isConnected )
             }
+            .refreshable { // loadMore() when pull to refreshed
+                await viewModel.loadMore(modelContext: context, isInternetConnected: networkInfo.isConnected )
+            }
             
             /// For loading more
 //            if viewModel.state == .isLoading{
