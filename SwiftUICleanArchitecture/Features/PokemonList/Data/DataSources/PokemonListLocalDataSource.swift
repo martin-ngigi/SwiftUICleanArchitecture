@@ -18,4 +18,14 @@ class PokemonListLocalDataSource {
         }
 
     }
+    
+    func deletePokemon(pokemon: PokemonSwiftDTO, context: ModelContext) throws {
+        do {
+            try SwiftDataOperations(operationType: .delete(pokemon, context)).performOperation()
+        }
+        catch {
+            throw error
+        }
+
+    }
 }

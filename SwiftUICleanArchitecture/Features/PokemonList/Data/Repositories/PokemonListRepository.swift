@@ -38,12 +38,11 @@ class PokemonListRepository: PokemonListRepositoryProtocol {
                 // delete all saved pokemons in db
                 for (index, entity) in pokemonLists.enumerated() {
                     print("Id: \(String(describing: entity.id)), Name: \(entity.name)")
-                    modelContext.delete(pokemonLists[index])
-                    // or
-//                    modelContext.delete(entity)
                     print("INDEX: \(index)")
                     do{
-                        try modelContext.save()
+                        try localPokemonListDataSource.deletePokemon(pokemon: entity, context: modelContext)
+                        // or
+                        //try localPokemonListDataSource.deletePokemon(pokemon: pokemonLists[index], context: modelContext)
                     }
                     catch{
                         print("DEBUG: Failed to delete with error \(error.localizedDescription)")
