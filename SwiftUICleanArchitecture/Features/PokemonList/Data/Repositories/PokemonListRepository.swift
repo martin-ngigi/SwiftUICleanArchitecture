@@ -82,8 +82,9 @@ class PokemonListRepository: PokemonListRepositoryProtocol {
     func fetchFromLocalDB(limit: Int, offset: Int, modelContext: ModelContext) -> Result<[PokemonEntity], APIError> {
         do{
             let fetchDescriptor = FetchDescriptor<PokemonSwiftDTO>()
-            
-            let pokemonLists: [PokemonSwiftDTO] = try modelContext.fetch(fetchDescriptor)
+            //let pokemonLists: [PokemonSwiftDTO] = try modelContext.fetch(fetchDescriptor)
+            let pokemonLists: [PokemonSwiftDTO] = try localPokemonListDataSource.getPokemonList(fetchDescriptor: fetchDescriptor, context: modelContext)
+
             
             let pokemonEntities: [PokemonEntity] = pokemonLists.map { pokemon in
                 return PokemonEntity(pokemonObject: pokemon)!

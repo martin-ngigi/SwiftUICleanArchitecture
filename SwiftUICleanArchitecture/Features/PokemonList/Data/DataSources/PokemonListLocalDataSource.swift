@@ -21,11 +21,23 @@ class PokemonListLocalDataSource {
     
     func deletePokemon(pokemon: PokemonSwiftDTO, context: ModelContext) throws {
         do {
-            try SwiftDataOperations(operationType: .delete(pokemon, context)).performOperation()
+            let _ = try SwiftDataOperations(operationType: .delete(pokemon, context)).performOperation()
         }
         catch {
             throw error
         }
 
+    }
+    
+    func getPokemonList(fetchDescriptor: FetchDescriptor<PokemonSwiftDTO>, context: ModelContext) throws -> [PokemonSwiftDTO] {
+        var pokemonList: [PokemonSwiftDTO] = []
+        do {
+            pokemonList = try SwiftDataOperations(operationType: .readList(fetchDescriptor, context)).performOperation()
+        }
+        catch {
+            pokemonList = []
+            throw error
+        }
+        return pokemonList
     }
 }

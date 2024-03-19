@@ -14,7 +14,7 @@ struct SwiftDataOperations<T: PersistentModel> { // can remove ": PersistentMode
     
     enum CRUDOperation {
         case create(T, ModelContext) // Accept any data type using Any.Type
-        case read
+        case readList(FetchDescriptor<T>, ModelContext)
         case update(T, ModelContext)
         case delete(T, ModelContext)
     }
@@ -25,20 +25,22 @@ struct SwiftDataOperations<T: PersistentModel> { // can remove ": PersistentMode
         self.operationType = operationType
     }
     
-    func performOperation() throws {
+    func performOperation() throws -> [T] { // add return statement i.e. "-> [T]" for the sake of .readList since it has a return statement
         switch operationType {
         case .create(let data, let context):
-            try createOperation(for: data, context: context)
-        case .read:
-            readOperation()
+            try createOperation(data: data, context: context)
+        case .readList(let fetchDescriptor, let context):
+            return try readListOperation(fetchDescriptor: fetchDescriptor, context: context)
         case .update(let data, let context):
-            updateOperation(for: data, context: context)
+            updateOperation(data: data, context: context)
         case .delete(let data, let context):
-            try deleteOperation(for: data, context: context)
+            try deleteOperation(data: data, context: context)
         }
+        
+        return [] // Default return if no operation is performed
     }
     
-    func createOperation(for data: T , context: ModelContext) throws {
+    func createOperation(data: T , context: ModelContext) throws {
         print("DEBUG: Performing create operation for type: \(data)")
         context.insert(data)
         do{
@@ -50,17 +52,26 @@ struct SwiftDataOperations<T: PersistentModel> { // can remove ": PersistentMode
         }
     }
     
-    func readOperation() {
-        print("Performing read operation")
-        // Implementation of read operation
+    func readListOperation(fetchDescriptor: FetchDescriptor<T>, context: ModelContext) throws -> [T] {
+        print("DEBUG: Performing read operation")
+        var dataLists : [T] = []
+        do {
+            dataLists = try context.fetch(fetchDescriptor)
+        }
+        catch {
+            dataLists = []
+            print("DEBUG: readListOperation failed with error \(error)")
+            throw error
+        }
+        return dataLists
     }
     
-    func updateOperation(for data: T, context: ModelContext) {
+    func updateOperation(data: T, context: ModelContext) {
         print("Performing update operation")
         // Implementation of update operation
     }
     
-    func deleteOperation(for data: T, context: ModelContext) throws {
+    func deleteOperation(data: T, context: ModelContext) throws {
         print("DEBUG: Performing delete operation")
         context.delete(data)
         do{
