@@ -30,7 +30,7 @@ struct PokemonEntity: Hashable{
         self.imageURL = Constants.APIEndpoint.getPokemonImage(id: pokemonDetailResponse.id).url?.absoluteString ?? ""
     }
     
-    init?(pokemonObject: PokemonSwiftDataObject) {
+    init?(pokemonObject: PokemonSwiftDTO) {
         guard let urlComponents = URLComponents(string: pokemonObject.url),
               let idString = urlComponents.path.split(separator: "/").last,
               let id = Int(idString) else {

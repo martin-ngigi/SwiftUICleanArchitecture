@@ -35,25 +35,34 @@ class PokemonListViewModel: ObservableObject{
             
             let networkInfo = NetworkInfoImpl()
             let isInternetConnected: Bool = await networkInfo.checkIfInternetIsConnected()
+//            let isInternetConnected: Bool = networkInfo.isConnected
+//            let isInternetConnected: Bool = true
             
             var result: Result<[PokemonEntity], APIError>
-            result = try await getPokemonListUseCase.executeRemote(limit: limit, offset: offset, modelContext: modelContext)
+
             // We have internet, so get pokemons from remote data source and also save to local
             if isInternetConnected {
-                print("DEBUG: Is internet connected ? \(networkInfo.isConnected)")
+                print("DEBUG: 1. Is internet connected ? \(isInternetConnected)")
                 result = try await getPokemonListUseCase.executeRemote(limit: limit, offset: offset, modelContext: modelContext)
             }
             // We don't have internet, so get from local db
             else {
-                print("DEBUG: Is internet connected ?? \(networkInfo.isConnected)")
+                print("DEBUG: 2. Is internet connected ?? \(isInternetConnected)")
                 result = getPokemonListUseCase.executeLocalData(limit: limit, offset: offset, modelContext: modelContext)
             }
             
             switch result {
             case .success(let newPokemonList):
-                if networkInfo.isConnected{
+                print("DEBUG: newPokemonList Success")
+                if isInternetConnected {
                     pokemonList += newPokemonList
                     offset += newPokemonList.count
+                    print("I am here 1 offset: \(offset)")
+                }
+                else {
+                    print("I am here 2 offset: \(offset)")
+                    pokemonList = newPokemonList
+                    offset = newPokemonList.count
                 }
                 
                 if newPokemonList.isEmpty {
@@ -63,12 +72,13 @@ class PokemonListViewModel: ObservableObject{
                     self.state = .good
                 }
             case .failure(let error):
-                print("loadMore pokemon list Error occurred: \(error.localizedDescription)")
+                print("DEBUG: newPokemonList Fail")
+                print("DEBUG: loadMore pokemon list Error occurred: \(error.localizedDescription)")
                 self.state = .error(error.localizedDescription)
             }
         }
         catch{
-            print("loadMore pokemon list Error occurred: \(error.localizedDescription)")
+            print("DEBUG: loadMore pokemon list Error occurred: \(error.localizedDescription)")
             self.state = .error(error.localizedDescription)
         }
     }

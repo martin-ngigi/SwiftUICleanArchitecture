@@ -39,7 +39,8 @@
 		A387F16F2BA6FAB600A2F53F /* NetworkInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387F16E2BA6FAB600A2F53F /* NetworkInfo.swift */; };
 		A387F1732BA6FF3A00A2F53F /* NetworkStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387F1722BA6FF3A00A2F53F /* NetworkStatusView.swift */; };
 		A387F1792BA71DD500A2F53F /* MyContexts.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387F1782BA71DD500A2F53F /* MyContexts.swift */; };
-		A387F17D2BA8C8CC00A2F53F /* Readme.MD in Resources */ = {isa = PBXBuildFile; fileRef = A387F17C2BA8C8CC00A2F53F /* Readme.MD */; };
+		A387F17F2BA958FD00A2F53F /* SwiftDataError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387F17E2BA958FD00A2F53F /* SwiftDataError.swift */; };
+		A387F1812BA95E2E00A2F53F /* PokemonListLocalDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = A387F1802BA95E2E00A2F53F /* PokemonListLocalDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,7 +78,8 @@
 		A387F16E2BA6FAB600A2F53F /* NetworkInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkInfo.swift; sourceTree = "<group>"; };
 		A387F1722BA6FF3A00A2F53F /* NetworkStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkStatusView.swift; sourceTree = "<group>"; };
 		A387F1782BA71DD500A2F53F /* MyContexts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyContexts.swift; sourceTree = "<group>"; };
-		A387F17C2BA8C8CC00A2F53F /* Readme.MD */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Readme.MD; sourceTree = "<group>"; };
+		A387F17E2BA958FD00A2F53F /* SwiftDataError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftDataError.swift; sourceTree = "<group>"; };
+		A387F1802BA95E2E00A2F53F /* PokemonListLocalDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PokemonListLocalDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,7 +96,6 @@
 		A35CF0732BA446E600082F3D = {
 			isa = PBXGroup;
 			children = (
-				A387F17C2BA8C8CC00A2F53F /* Readme.MD */,
 				A35CF07E2BA446E600082F3D /* SwiftUICleanArchitecture */,
 				A35CF07D2BA446E600082F3D /* Products */,
 			);
@@ -222,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				A35CF0A52BA4584300082F3D /* PokemonListRemoteDataSource.swift */,
+				A387F1802BA95E2E00A2F53F /* PokemonListLocalDataSource.swift */,
 			);
 			path = DataSources;
 			sourceTree = "<group>";
@@ -376,6 +378,7 @@
 			children = (
 				A387F15E2BA5878500A2F53F /* FetchState.swift */,
 				A387F16B2BA622CA00A2F53F /* APIError.swift */,
+				A387F17E2BA958FD00A2F53F /* SwiftDataError.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -464,7 +467,6 @@
 			files = (
 				A35CF0882BA446EA00082F3D /* Preview Assets.xcassets in Resources */,
 				A35CF0842BA446EA00082F3D /* Assets.xcassets in Resources */,
-				A387F17D2BA8C8CC00A2F53F /* Readme.MD in Resources */,
 				A35CF08F2BA4499800082F3D /* Readme.MD in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -476,6 +478,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A387F1812BA95E2E00A2F53F /* PokemonListLocalDataSource.swift in Sources */,
 				A35CF0B52BA45FAB00082F3D /* PokemonListView.swift in Sources */,
 				A35CF0A22BA4579000082F3D /* PokemonResponseModel.swift in Sources */,
 				A35CF0C52BA4761600082F3D /* DetailDataSource.swift in Sources */,
@@ -490,6 +493,7 @@
 				A387F1632BA59F2100A2F53F /* ListPlaceholderRowView.swift in Sources */,
 				A387F1792BA71DD500A2F53F /* MyContexts.swift in Sources */,
 				A35CF09A2BA44EA700082F3D /* NetworkUtils.swift in Sources */,
+				A387F17F2BA958FD00A2F53F /* SwiftDataError.swift in Sources */,
 				A35CF0A62BA4584300082F3D /* PokemonListRemoteDataSource.swift in Sources */,
 				A35CF0802BA446E600082F3D /* SwiftUICleanArchitectureApp.swift in Sources */,
 				A387F15F2BA5878500A2F53F /* FetchState.swift in Sources */,

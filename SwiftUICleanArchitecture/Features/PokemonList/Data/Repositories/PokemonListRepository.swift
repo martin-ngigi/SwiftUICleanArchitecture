@@ -29,16 +29,16 @@ class PokemonListRepository: PokemonListRepositoryProtocol {
                     return PokemonEntity(pokemonResponse: pokemon)!
                 }
             
-                let fetchDescriptor = FetchDescriptor<PokemonSwiftDataObject>()
-                let pokemonLists: [PokemonSwiftDataObject] = try! modelContext.fetch(fetchDescriptor)
+                let fetchDescriptor = FetchDescriptor<PokemonSwiftDTO>()
+                let pokemonLists: [PokemonSwiftDTO] = try! modelContext.fetch(fetchDescriptor)
                 print("DEBUG: pokemons count before deleting is: \(pokemonLists.count)")
             
                 // delete all saved pokemons in db
                 for (index, entity) in pokemonLists.enumerated() {
                     print("Id: \(String(describing: entity.id)), Name: \(entity.name)")
-                    //modelContext.delete(pokemonLists[index])
+                    modelContext.delete(pokemonLists[index])
                     // or
-                    modelContext.delete(entity)
+//                    modelContext.delete(entity)
                     print("INDEX: \(index)")
                     do{
                         try modelContext.save()
@@ -48,13 +48,13 @@ class PokemonListRepository: PokemonListRepositoryProtocol {
                     }
                 }
             
-                let pokemonLists2: [PokemonSwiftDataObject] = try! modelContext.fetch(fetchDescriptor)
+                let pokemonLists2: [PokemonSwiftDTO] = try! modelContext.fetch(fetchDescriptor)
                 
                 print("DEBUG: pokemon count after deleting is: \(pokemonLists2.count)")
 
                 // Save to local SwiftData
-                let pokemonSwiftDatas: [PokemonSwiftDataObject] = pokemonResponse.map { pokemon in
-                    return PokemonSwiftDataObject(item: pokemon)
+                let pokemonSwiftDatas: [PokemonSwiftDTO] = pokemonResponse.map { pokemon in
+                    return PokemonSwiftDTO(item: pokemon)
                 }
                 for entity in pokemonSwiftDatas {
                     do {
@@ -68,7 +68,7 @@ class PokemonListRepository: PokemonListRepositoryProtocol {
                         return .failure(.custom("Couldn't save to local storage"))
                     }
                 }
-                let pokemonLists3: [PokemonSwiftDataObject] = try! modelContext.fetch(fetchDescriptor)
+                let pokemonLists3: [PokemonSwiftDTO] = try! modelContext.fetch(fetchDescriptor)
                 
                 print("DEBUG: pokemon count after saving is: \(pokemonLists3.count)")
                 return .success(pokemonEntities)
@@ -81,9 +81,9 @@ class PokemonListRepository: PokemonListRepositoryProtocol {
     
     func fetchFromLocalDB(limit: Int, offset: Int, modelContext: ModelContext) -> Result<[PokemonEntity], APIError> {
         do{
-            let fetchDescriptor = FetchDescriptor<PokemonSwiftDataObject>()
+            let fetchDescriptor = FetchDescriptor<PokemonSwiftDTO>()
             
-            let pokemonLists: [PokemonSwiftDataObject] = try modelContext.fetch(fetchDescriptor)
+            let pokemonLists: [PokemonSwiftDTO] = try modelContext.fetch(fetchDescriptor)
             
             let pokemonEntities: [PokemonEntity] = pokemonLists.map { pokemon in
                 return PokemonEntity(pokemonObject: pokemon)!

@@ -14,7 +14,7 @@ class PokemonResponseModel : Decodable, Encodable {
     let name: String
     let url: String
     
-    init?(pokemonObject: PokemonSwiftDataObject) {
+    init?(pokemonObject: PokemonSwiftDTO) {
         guard let urlComponents = URLComponents(string: pokemonObject.url),
               let idString = urlComponents.path.split(separator: "/").last,
               let id = Int(idString) else {
@@ -28,7 +28,7 @@ class PokemonResponseModel : Decodable, Encodable {
 
 // This will be saved in Swift Data
 @Model
-class PokemonSwiftDataObject{
+class PokemonSwiftDTO{
     @Attribute(.unique)
 //    var id: String = NSUUID().description
     var id: Int {
