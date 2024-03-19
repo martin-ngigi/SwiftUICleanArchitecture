@@ -18,8 +18,9 @@ struct PokemonListView: View {
         NavigationStack{
                         
             List{
-                
-                NetworkStatusView()
+                if !networkInfo.isConnected {
+                    NetworkStatusView()
+                }
                 
                 ForEach(viewModel.pokemonList, id: \.self){ pokemon in
                     NavigationLink(destination: PokemonDetailView(id: pokemon.id)) {
