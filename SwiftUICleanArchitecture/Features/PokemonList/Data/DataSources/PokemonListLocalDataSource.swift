@@ -19,6 +19,16 @@ class PokemonListLocalDataSource {
 
     }
     
+    // Function to check if there is an existing Pokémon with a specified name
+    func checkExistingPokemon(withName name: String, in pokemonList: [PokemonSwiftDTO]) -> Bool {
+        for pokemon in pokemonList {
+            if pokemon.name.lowercased() == name.lowercased() {
+                return true // Found a Pokémon with the specified name
+            }
+        }
+        return false // No Pokémon found with the specified name
+    }
+    
     func deletePokemon(pokemon: PokemonSwiftDTO, context: ModelContext) throws {
         do {
             let _ = try SwiftDataOperations(operationType: .delete(pokemon, context)).performOperation()
