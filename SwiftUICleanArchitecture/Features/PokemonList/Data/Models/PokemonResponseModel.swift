@@ -13,6 +13,7 @@ class PokemonResponseModel : Decodable, Encodable {
     let id: Int? // Not in API response
     let name: String
     let url: String
+    let image: Data?
     
     init?(pokemonObject: PokemonSwiftDTO) {
         guard let urlComponents = URLComponents(string: pokemonObject.url),
@@ -23,6 +24,7 @@ class PokemonResponseModel : Decodable, Encodable {
         self.id = id
         self.name = pokemonObject.name
         self.url = Constants.APIEndpoint.getPokemonImage(id: id).url?.absoluteString ?? ""
+        self.image = pokemonObject.image
     }
 }
 
@@ -44,15 +46,24 @@ class PokemonSwiftDTO{
     var name: String
     var url: String
     
-    init(name: String, url: String) {
+    @Attribute(.externalStorage)
+    var image: Data?
+    
+    init(name: String, url: String, image: Data) {
         self.name = name
         self.url = url
+        self.image = image
     }
     
     convenience init(item: PokemonResponseModel) {
             self.init(
                 name: item.name,
-                url: item.url
+                url: item.url,
+                image: item.image ?? Data()
             )
         }
+}
+
+extension PokemonSwiftDTO{
+    static let MOCK_POKEMON = PokemonSwiftDTO(name: "TEST", url: "example.com", image: Data() )
 }

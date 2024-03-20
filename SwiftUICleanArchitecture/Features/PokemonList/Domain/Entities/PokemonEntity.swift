@@ -8,9 +8,17 @@
 import Foundation
 
 struct PokemonEntity: Hashable{
-    let id: Int
-    let name: String
-    let imageURL: String
+    var id: Int
+    var name: String
+    var imageURL: String
+    var image: Data?
+    
+    init(id: Int, name: String, imageURL: String, image: Data?) {
+        self.id = id
+        self.name = name
+        self.imageURL = imageURL
+        self.image = image
+    }
     
     init?(pokemonResponse: PokemonResponseModel) {
         guard let urlComponents = URLComponents(string: pokemonResponse.url),
@@ -21,6 +29,7 @@ struct PokemonEntity: Hashable{
         self.id = id
         self.name = pokemonResponse.name
         self.imageURL = Constants.APIEndpoint.getPokemonImage(id: id).url?.absoluteString ?? ""
+        self.image = pokemonResponse.image
     }
     
     init?(pokemonDetailResponse: PokemonDetailResponseModel) {
@@ -28,6 +37,7 @@ struct PokemonEntity: Hashable{
         self.name = pokemonDetailResponse.name
 //        self.imageURL = Constants.APIEndpoint.getPokemonImage(id: id).url?.absoluteString ?? ""
         self.imageURL = Constants.APIEndpoint.getPokemonImage(id: pokemonDetailResponse.id).url?.absoluteString ?? ""
+        self.image = pokemonDetailResponse.image
     }
     
     init?(pokemonObject: PokemonSwiftDTO) {
@@ -39,5 +49,10 @@ struct PokemonEntity: Hashable{
         self.id = id
         self.name = pokemonObject.name
         self.imageURL = Constants.APIEndpoint.getPokemonImage(id: id).url?.absoluteString ?? ""
+        self.image = pokemonObject.image
     }
+}
+
+extension PokemonEntity {
+//    static let MOCK_POKEMON_ENTITY = PokemonEntity
 }

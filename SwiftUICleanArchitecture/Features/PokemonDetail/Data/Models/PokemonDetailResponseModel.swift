@@ -12,4 +12,5 @@ struct PokemonDetailResponseModel: Codable{
     let name: String
     let height: Int
     let weight: Int
+    let image: Data?
 }

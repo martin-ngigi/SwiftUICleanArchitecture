@@ -60,6 +60,12 @@ class PokemonListRepository: PokemonListRepositoryProtocol {
                 for entity in pokemonSwiftDatas {
                     do {
                         //insert and save pokemons
+//                        modelContext.insert(entity)
+//                        try context.save()
+                        
+//                        let imageData = try Data(contentsOf: URL(string: entity.url)!) // NB: This images have an issue while saving to DB.
+                        let imageData = try Data(contentsOf: URL(string: "https://st.depositphotos.com/3336339/4627/i/450/depositphotos_46270609-stock-photo-unique-red-ball-leader.jpg")!)
+                        entity.image = imageData
                         try localPokemonListDataSource.createPokemon(pokemon: entity, context: modelContext)
                         //print("DEBUG: Saving Pokemons to local db success. Id: \(String(describing: entity.id)), Name: \(entity.name)")
                     }
@@ -88,6 +94,10 @@ class PokemonListRepository: PokemonListRepositoryProtocol {
             
             let pokemonEntities: [PokemonEntity] = pokemonLists.map { pokemon in
                 return PokemonEntity(pokemonObject: pokemon)!
+                // OR
+//                let pokemon : PokemonEntity =  PokemonEntity(id: pokemon.id, name: pokemon.name, imageURL: pokemon.url , image: pokemon.image)
+//                print("description \(pokemon.image?.description)")
+//                return pokemon
             }
             
             print("DEBUG: Retreieved cached pokemon from local data. Count is \(pokemonEntities.count)")

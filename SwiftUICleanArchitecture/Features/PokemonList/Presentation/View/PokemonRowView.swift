@@ -9,14 +9,29 @@ import SwiftUI
 
 struct PokemonRowView: View {
     var pokemon: PokemonEntity
+    @ObservedObject var networkInfo = NetworkInfoImpl()
     
     var body: some View {
         HStack{
-            AsyncImage(url: URL(string: pokemon.imageURL)) { image in
-                image.image?.resizable()
+            if networkInfo.isConnected{
+                AsyncImage(url: URL(string: pokemon.imageURL)) { image in
+                    image.image?.resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 100)
+                }
             }
-            .scaledToFit()
-            .frame(width: 100, height: 100)
+            else {
+                if let imageData = pokemon.image, let image = UIImage(data: imageData){
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFit()
+                        .clipShape(.rect(cornerRadius: 5))
+                        .frame(width: 80, height: 140)
+                }
+                
+            }
+            
+            
             
             Text(pokemon.name)
         }

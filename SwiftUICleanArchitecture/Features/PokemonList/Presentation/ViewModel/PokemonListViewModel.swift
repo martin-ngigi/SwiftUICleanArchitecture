@@ -33,9 +33,6 @@ class PokemonListViewModel: ObservableObject{
         
         do {
             
-//            let networkInfo = NetworkInfoImpl()
-//            let isInternetConnected: Bool = await networkInfo.checkIfInternetIsConnected()
-            
             var result: Result<[PokemonEntity], APIError>
 
             // We have internet, so get pokemons from remote data source and also save to local
