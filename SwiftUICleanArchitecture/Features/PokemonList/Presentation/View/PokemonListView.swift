@@ -24,7 +24,7 @@ struct PokemonListView: View {
                 
                 ForEach(viewModel.pokemonList, id: \.self){ pokemon in
                     NavigationLink(destination: PokemonDetailView(id: pokemon.id)) {
-                        PokemonRowView(pokemon: pokemon)
+                        PokemonRowView(pokemon: pokemon, networkInfo: networkInfo)
                             .onAppear{
                                 if viewModel.pokemonList.last == pokemon {
                                     Task { await viewModel.loadMore(modelContext: context, isInternetConnected: networkInfo.isConnected) }
@@ -45,6 +45,21 @@ struct PokemonListView: View {
             .refreshable { // loadMore() when pull to refreshed
                 await viewModel.loadMore(modelContext: context, isInternetConnected: networkInfo.isConnected )
             }
+            .toolbar {
+    //             Refresh
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button{
+                        Task{
+                            await viewModel.loadMore(modelContext: context, isInternetConnected: networkInfo.isConnected )
+                        }
+                    } label: {
+                        Image(systemName: "arrow.counterclockwise")
+//                        Text("Refresh")
+                    }
+                    .buttonStyle(.bordered)
+                }
+                    
+            }
             
             /// For loading more
 //            if viewModel.state == .isLoading{
@@ -54,37 +69,6 @@ struct PokemonListView: View {
     }
         
     
-    var body2: some View {
-        NavigationStack{
-            if viewModel.state == .isLoading{
-                LoadingIndicatorView()
-            }
-            else if viewModel.state == .noResults{
-                ContentUnavailableView("No pokemons", systemImage: "tray.full")
-            }
-            
-            else if viewModel.pokemonList.count > 0 {
-                List{
-                    ForEach(viewModel.pokemonList, id: \.self){ pokemon in
-                        NavigationLink(destination: PokemonDetailView(id: pokemon.id)) {
-                            PokemonRowView(pokemon: pokemon)
-                                .onAppear{
-                                    if viewModel.pokemonList.last == pokemon {
-//                                        Task { await viewModel.loadMore() }
-                                    }
-                                }
-                        }
-                    }
-                    
-                }
-                .navigationTitle("Pokemons")
-            }
-        }
-//        .task { //loadMore() on appear
-//            await viewModel.loadMore()
-//        }
-        
-    }
     
 }
 

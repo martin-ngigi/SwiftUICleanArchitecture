@@ -9,7 +9,8 @@ import SwiftUI
 
 struct PokemonRowView: View {
     var pokemon: PokemonEntity
-    @ObservedObject var networkInfo = NetworkInfoImpl()
+//    @ObservedObject var networkInfo = NetworkInfoImpl()
+    @State var networkInfo: NetworkInfoImpl
     
     var body: some View {
         HStack{
